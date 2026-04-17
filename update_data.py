@@ -126,7 +126,7 @@ def load_data():
         if last_brace == -1:
             print(f"[警告] {DATA_FILE} 中未找到有效的 JS 对象结尾")
             return {}
-        json_str = content[json_start:last_brace].strip()
+        json_str = content[json_start:last_brace + 1].strip()
         return json.loads(json_str)
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"[警告] 无法加载 {DATA_FILE}: {e}")
