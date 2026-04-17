@@ -425,6 +425,22 @@ img { max-width: 100%; }
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.8rem; color: var(--text-muted); flex-wrap: wrap; gap: 12px;
 }
+.footer-disclaimer {
+  padding: 24px 0;
+  border-top: 1px solid var(--border-color);
+}
+.footer-disclaimer h4 {
+  font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+}
+.footer-disclaimer ul {
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px;
+}
+.footer-disclaimer li {
+  font-size: 0.8rem; color: var(--text-muted); line-height: 1.7;
+  padding-left: 12px; border-left: 2px solid var(--border-color);
+}
+.footer-disclaimer li strong { color: var(--text-secondary); }
 
 /* ========== SCROLL REVEAL ========== */
 .reveal {
@@ -465,6 +481,7 @@ img { max-width: 100%; }
   .problems-grid, .cases-grid, .guide-grid { grid-template-columns: 1fr; }
   .demographics-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
+  .footer-disclaimer ul { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .overview-grid { grid-template-columns: 1fr; }
 }
@@ -1042,6 +1059,17 @@ img { max-width: 100%; }
           <li><a href="#">演出门票退票政策</a></li>
         </ul>
       </div>
+    </div>
+    <div class="footer-disclaimer">
+      <h4>免责声明</h4>
+      <ul>
+        <li><strong>数据来源：</strong>本站所有数据均来自全国12315平台、黑猫投诉、消费保、中国消费者协会等公开渠道，本站不拥有原始数据的版权，数据仅供信息参考之用。</li>
+        <li><strong>准确性免责：</strong>本站尽力确保数据准确，但不对数据的完整性、准确性、及时性作出任何保证。数据可能因来源平台更新而产生延迟或差异，使用者应以各官方平台发布的最新数据为准。</li>
+        <li><strong>非法律建议：</strong>本站内容仅为信息汇总与展示，不构成任何形式的法律建议、专业意见或维权指导。如需法律帮助，请联系专业律师或拨打12315热线咨询。</li>
+        <li><strong>中立立场：</strong>本站不代表任何政府机构、企业或组织的官方立场，不对任何特定票务平台做出主观评价。所展示的投诉数据和统计信息客观反映公开渠道的记录。</li>
+        <li><strong>合理使用：</strong>本站引用公开投诉数据出于消费者知情权和公共利益目的，属于《著作权法》规定的合理使用范畴。如任何权利人有异议，请联系本站，我们将及时处理。</li>
+        <li><strong>外部链接：</strong>本站提供的外部链接仅为方便用户查阅，不代表本站对其内容、准确性或立场的认可，亦不对其承担任何责任。</li>
+      </ul>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2025 大退网 DaTuiWang · 数据均来自公开渠道，仅供信息参考</span>
