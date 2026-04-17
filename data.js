@@ -1,4 +1,4 @@
-{
+const SITE_DATA = {
   "lastUpdated": "2026-04-17",
   "hero": {
     "totalComplaints": 57000,
@@ -43,5 +43,6 @@
     "femaleRate": 75.79,
     "maleRate": 24.21,
     "cityTierRate": "超60%"
-  }
-}
+  },
+  "history": []
+};

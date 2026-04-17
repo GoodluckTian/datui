@@ -496,6 +496,7 @@ img { max-width: 100%; }
       <li><a href="#overview">数据概览</a></li>
       <li><a href="#platforms">平台排行</a></li>
       <li><a href="#analysis">投诉分析</a></li>
+      <li><a href="#trend">趋势分析</a></li>
       <li><a href="#demographics">用户画像</a></li>
       <li><a href="#problems">主要问题</a></li>
       <li><a href="#cases">典型案例</a></li>
@@ -508,6 +509,7 @@ img { max-width: 100%; }
   <a href="#overview" onclick="closeMobile()">数据概览</a>
   <a href="#platforms" onclick="closeMobile()">平台排行</a>
   <a href="#analysis" onclick="closeMobile()">投诉分析</a>
+  <a href="#trend" onclick="closeMobile()">趋势分析</a>
   <a href="#demographics" onclick="closeMobile()">用户画像</a>
   <a href="#problems" onclick="closeMobile()">主要问题</a>
   <a href="#cases" onclick="closeMobile()">典型案例</a>
@@ -702,6 +704,21 @@ img { max-width: 100%; }
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ========== TREND ANALYSIS ========== -->
+<section id="trend" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title-en">TREND ANALYSIS</h2>
+      <h2 class="section-title">趋势分析</h2>
+      <p class="section-desc">追踪投诉数据变化趋势，洞察行业动态</p>
+    </div>
+    <div class="chart-container" style="max-width:800px;margin:0 auto">
+      <canvas id="trendChart"></canvas>
+    </div>
+    <p id="trendNote" style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:16px"></p>
   </div>
 </section>
 
@@ -980,6 +997,7 @@ img { max-width: 100%; }
 </button>
 
 <!-- ========== JAVASCRIPT ========== -->
+<script src="data.js"></script>
 <script>
 // ===== DEFAULT DATA (fallback) =====
 const DEFAULT_DATA = {
@@ -1016,15 +1034,21 @@ const DEFAULT_DATA = {
     femaleRate: 75.79,
     maleRate: 24.21,
     cityTierRate: "超60%"
-  }
+  },
+  history: []
 };
 
 // ===== LOAD DATA =====
 async function loadData() {
   try {
-    const resp = await fetch('data.json?t=' + Date.now());
-    if (resp.ok) return await resp.json();
-  } catch(e) { console.warn('data.json 加载失败，使用默认数据'); }
+    // Try loading data.js via dynamic import or script tag
+    // First check if SITE_DATA is already defined (from script tag)
+    if (typeof SITE_DATA !== 'undefined') {
+      console.log('从 data.js 加载数据，更新时间：' + SITE_DATA.lastUpdated);
+      return SITE_DATA;
+    }
+  } catch(e) {}
+  console.warn('data.js 加载失败，使用默认数据');
   return DEFAULT_DATA;
 }
 
@@ -1084,6 +1108,7 @@ function updateDOM(data) {
 async function initApp() {
   const data = await loadData();
   updateDOM(data);
+  createTrendChart(data);
 
   // ===== NAVIGATION =====
   const nav = document.getElementById('nav');
@@ -1371,6 +1396,76 @@ async function initApp() {
         }
       }
     });
+  }
+
+  // ===== TREND CHART =====
+  function createTrendChart(data) {
+    const history = data.history || [];
+    if (history.length < 2) {
+      const note = document.getElementById('trendNote');
+      if (note) note.textContent = '趋势数据积累中，需要至少2天数据才能展示趋势图';
+      return;
+    }
+
+    const ctx = document.getElementById('trendChart');
+    if (!ctx) return;
+
+    const dates = history.map(h => h.date);
+
+    // Build datasets for each platform that has complaint data
+    const platformNames = ['大麦网', '猫眼', '秀动', '淘票票', '纷玩岛'];
+    const colors = ['#ff4444', '#ff6b35', '#ffb800', '#ff8a65', '#ffab91'];
+
+    const datasets = platformNames.map((name, i) => {
+      const values = history.map(h => {
+        const p = (h.platforms || []).find(pl => pl.name === name);
+        return p ? p.complaints : null;
+      });
+      return {
+        label: name,
+        data: values,
+        borderColor: colors[i],
+        backgroundColor: colors[i] + '20',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        tension: 0.3,
+        spanGaps: true,
+        fill: false
+      };
+    });
+
+    // Add total complaints trend
+    datasets.unshift({
+      label: '投诉总量',
+      data: history.map(h => h.hero ? h.hero.totalComplaints : null),
+      borderColor: '#ffffff',
+      backgroundColor: '#ffffff20',
+      borderWidth: 3,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      tension: 0.3,
+      spanGaps: true,
+      fill: false
+    });
+
+    new Chart(ctx, {
+      type: 'line',
+      data: { labels: dates, datasets: datasets },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { labels: { color: '#ccc', font: { size: 12 } } }
+        },
+        scales: {
+          x: { ticks: { color: '#888' }, grid: { color: '#333' } },
+          y: { ticks: { color: '#888' }, grid: { color: '#333' } }
+        }
+      }
+    });
+
+    const note = document.getElementById('trendNote');
+    if (note) note.textContent = '数据范围：' + dates[0] + ' 至 ' + dates[dates.length - 1] + '（共' + dates.length + '天）';
   }
 }
 

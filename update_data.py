@@ -47,8 +47,8 @@ except ImportError:
 # 全局配置
 # ============================================================
 
-# data.json 文件路径（与脚本同目录）
-DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.json")
+# data.js 文件路径（与脚本同目录）
+DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data.js")
 
 # 请求超时时间（秒）
 REQUEST_TIMEOUT = 15
@@ -106,12 +106,28 @@ def safe_float(text, default=None):
 
 def load_data():
     """
-    加载现有的 data.json 文件。
+    加载现有的 data.js 文件。
+    通过提取 `const SITE_DATA = ` 和最后的 `};` 之间的 JSON 来解析。
     如果文件不存在则返回空字典。
     """
     try:
         with open(DATA_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+            content = f.read()
+        # 提取 const SITE_DATA = ... ; 之间的 JSON 内容
+        match = re.search(r"const\s+SITE_DATA\s*=\s*", content)
+        if not match:
+            print(f"[警告] {DATA_FILE} 中未找到 SITE_DATA 变量定义")
+            return {}
+        # 找到最后一个 };
+        json_start = match.end()
+        # 从 json_start 开始找到匹配的 }（处理嵌套对象）
+        # 简单方法：找到最后一个 };
+        last_brace = content.rfind("};")
+        if last_brace == -1:
+            print(f"[警告] {DATA_FILE} 中未找到有效的 JS 对象结尾")
+            return {}
+        json_str = content[json_start:last_brace].strip()
+        return json.loads(json_str)
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"[警告] 无法加载 {DATA_FILE}: {e}")
         return {}
@@ -119,11 +135,14 @@ def load_data():
 
 def save_data(data):
     """
-    将数据写入 data.json 文件，使用格式化输出便于阅读。
+    将数据写入 data.js 文件，使用 JavaScript 变量赋值格式。
+    输出格式: const SITE_DATA = { ... };
     """
     try:
         with open(DATA_FILE, "w", encoding="utf-8") as f:
+            f.write("const SITE_DATA = ")
             json.dump(data, f, ensure_ascii=False, indent=2)
+            f.write(";\n")
         print(f"[成功] 数据已保存到 {DATA_FILE}")
     except IOError as e:
         print(f"[错误] 无法写入 {DATA_FILE}: {e}")
@@ -482,12 +501,45 @@ def main():
     else:
         print("  -> 数据无实质性变更，仅更新时间戳")
 
-    # 第四步：保存数据
-    print("\n[步骤4] 保存数据...")
+    # 第四步：添加历史快照
+    print("\n[步骤4] 添加历史快照...")
+    today_str = date.today().isoformat()
+
+    # 确保 history 数组存在
+    if "history" not in updated_data:
+        updated_data["history"] = []
+
+    # 检查今天是否已有记录，避免重复
+    today_exists = any(h.get("date") == today_str for h in updated_data["history"])
+    if not today_exists:
+        # 创建今天的简化快照
+        snapshot = {
+            "date": today_str,
+            "hero": {
+                "totalComplaints": updated_data.get("hero", {}).get("totalComplaints")
+            },
+            "platforms": [
+                {"name": p["name"], "complaints": p.get("complaints")}
+                for p in updated_data.get("platforms", [])
+                if p.get("complaints") is not None
+            ]
+        }
+        updated_data["history"].append(snapshot)
+        print(f"  -> 已添加 {today_str} 的历史快照")
+    else:
+        print(f"  -> {today_str} 已有历史记录，跳过")
+
+    # 保留最近365天的历史记录
+    if len(updated_data["history"]) > 365:
+        updated_data["history"] = updated_data["history"][-365:]
+        print(f"  -> 历史记录已裁剪至最近365天")
+
+    # 第五步：保存数据
+    print("\n[步骤5] 保存数据...")
     save_data(updated_data)
 
-    # 第五步：Git 提交和推送
-    print("\n[步骤5] Git 操作...")
+    # 第六步：Git 提交和推送
+    print("\n[步骤6] Git 操作...")
     git_commit_and_push(data_changed)
 
     print("\n" + "=" * 60)
