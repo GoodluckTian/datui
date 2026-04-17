@@ -523,6 +523,7 @@ img { max-width: 100%; }
       <span class="pulse"></span>
       基于公开投诉数据 · 实时更新
     </div>
+    <div class="hero-update-time" id="updateTime" style="font-size:0.8rem;color:var(--text-muted);margin-top:8px"></div>
     <h1 class="hero-title animate-in animate-in-d1">
       <span class="highlight">大退网</span>
     </h1>
@@ -532,19 +533,19 @@ img { max-width: 100%; }
     </p>
     <div class="hero-stats">
       <div class="hero-stat animate-in animate-in-d2">
-        <div class="hero-stat-value"><span class="counter" data-target="57000" data-suffix="+">0</span></div>
+        <div class="hero-stat-value"><span class="counter" data-target="57000" data-suffix="+" data-id="hero.totalComplaints">0</span></div>
         <div class="hero-stat-label">2025年黑猫投诉平台娱乐票务投诉</div>
       </div>
       <div class="hero-stat animate-in animate-in-d3">
-        <div class="hero-stat-value"><span class="counter" data-target="90.83" data-suffix="%" data-decimal="2">0</span></div>
+        <div class="hero-stat-value"><span class="counter" data-target="90.83" data-suffix="%" data-decimal="2" data-id="hero.refundRequestRate">0</span></div>
         <div class="hero-stat-label">退款诉求占比（中消协报告）</div>
       </div>
       <div class="hero-stat animate-in animate-in-d4">
-        <div class="hero-stat-value"><span class="counter" data-target="83.77" data-suffix="%" data-decimal="2">0</span></div>
+        <div class="hero-stat-value"><span class="counter" data-target="83.77" data-suffix="%" data-decimal="2" data-id="hero.refundDifficultyRate">0</span></div>
         <div class="hero-stat-label">投诉提及退款困难</div>
       </div>
       <div class="hero-stat animate-in animate-in-d5">
-        <div class="hero-stat-value"><span class="counter" data-target="18.95" data-suffix="%" data-decimal="2">0</span></div>
+        <div class="hero-stat-value"><span class="counter" data-target="18.95" data-suffix="%" data-decimal="2" data-id="hero.resolutionRate">0</span></div>
         <div class="hero-stat-label">有效解决投诉比例</div>
       </div>
     </div>
@@ -564,7 +565,7 @@ img { max-width: 100%; }
         <div class="overview-card-icon red">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         </div>
-        <div class="overview-card-value" style="color:var(--accent-red)">1.58亿+</div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="overview.totalAmount">1.58亿+</div>
         <div class="overview-card-label">涉诉总金额</div>
         <div class="overview-card-note">消费保平台累计数据（2019-2025）</div>
       </div>
@@ -572,7 +573,7 @@ img { max-width: 100%; }
         <div class="overview-card-icon orange">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-        <div class="overview-card-value" style="color:var(--accent-orange)">14.79万件</div>
+        <div class="overview-card-value" style="color:var(--accent-orange)" data-id="overview.cumulativeComplaints">14.79万件</div>
         <div class="overview-card-label">消费保平台累计票务投诉</div>
         <div class="overview-card-note">2019年至2025年累计数据</div>
       </div>
@@ -580,15 +581,15 @@ img { max-width: 100%; }
         <div class="overview-card-icon yellow">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
-        <div class="overview-card-value" style="color:var(--accent-yellow)">41,278件</div>
+        <div class="overview-card-value" style="color:var(--accent-yellow)" data-id="overview.yearComplaints">41,278件</div>
         <div class="overview-card-label">2025年1-10月票务平台投诉</div>
-        <div class="overview-card-note">涉及金额4,225万元</div>
+        <div class="overview-card-note" data-id="overview.yearAmount">涉及金额4,225万元</div>
       </div>
       <div class="overview-card reveal reveal-delay-4">
         <div class="overview-card-icon red">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <div class="overview-card-value" style="color:var(--accent-red)">62.52%</div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="overview.mediationRate">62.52%</div>
         <div class="overview-card-label">2024年全国12315投诉调解成功率</div>
         <div class="overview-card-note">票务类投诉解决率远低于平均水平</div>
       </div>
@@ -619,56 +620,56 @@ img { max-width: 100%; }
           <tr>
             <td><span class="platform-rank r1">1</span></td>
             <td><span class="platform-name">大麦网</span></td>
-            <td style="font-weight:700">85,235件</td>
+            <td style="font-weight:700" data-id="platform.0.complaints">85,235件</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="100"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="100" data-id="platform.0.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate low">&lt;10%</span></td>
+            <td><span class="resolve-rate low" data-id="platform.0.resolveRate">&lt;10%</span></td>
           </tr>
           <tr>
             <td><span class="platform-rank r2">2</span></td>
             <td><span class="platform-name">猫眼</span></td>
-            <td style="font-weight:700">33,865件</td>
+            <td style="font-weight:700" data-id="platform.1.complaints">33,865件</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="39.7"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="39.7" data-id="platform.1.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate mid">47.89%</span></td>
+            <td><span class="resolve-rate mid" data-id="platform.1.resolveRate">47.89%</span></td>
           </tr>
           <tr>
             <td><span class="platform-rank r3">3</span></td>
             <td><span class="platform-name">秀动</span></td>
-            <td style="font-weight:700">4,300件</td>
+            <td style="font-weight:700" data-id="platform.2.complaints">4,300件</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.2.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate low">&lt;10%</span></td>
+            <td><span class="resolve-rate low" data-id="platform.2.resolveRate">&lt;10%</span></td>
           </tr>
           <tr>
             <td><span class="platform-rank r4">4</span></td>
             <td><span class="platform-name">淘票票</span></td>
-            <td style="font-weight:700">4,226件</td>
+            <td style="font-weight:700" data-id="platform.3.complaints">4,226件</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.3.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate" style="color:var(--text-muted)">N/A</span></td>
+            <td><span class="resolve-rate" style="color:var(--text-muted)" data-id="platform.3.resolveRate">N/A</span></td>
           </tr>
           <tr>
             <td><span class="platform-rank r5">5</span></td>
             <td><span class="platform-name">纷玩岛</span></td>
-            <td style="font-weight:700">477件</td>
+            <td style="font-weight:700" data-id="platform.4.complaints">477件</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0.6"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0.6" data-id="platform.4.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate low">&lt;10%</span></td>
+            <td><span class="resolve-rate low" data-id="platform.4.resolveRate">&lt;10%</span></td>
           </tr>
           <tr>
             <td><span class="platform-rank r6">6</span></td>
             <td><span class="platform-name">摩天轮票务</span></td>
-            <td style="font-weight:700;color:var(--text-muted)">N/A</td>
+            <td style="font-weight:700;color:var(--text-muted)" data-id="platform.5.complaints">N/A</td>
             <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0"></div></div>
+              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0" data-id="platform.5.barWidth"></div></div>
             </td>
-            <td><span class="resolve-rate high">84.49%</span></td>
+            <td><span class="resolve-rate high" data-id="platform.5.resolveRate">84.49%</span></td>
           </tr>
         </tbody>
       </table>
@@ -744,7 +745,7 @@ img { max-width: 100%; }
         </div>
         <div class="demo-stat-row">
           <div>
-            <div class="demo-stat-value" style="color:var(--accent-orange)">75.79%</div>
+            <div class="demo-stat-value" style="color:var(--accent-orange)" data-id="demographics.femaleRate">75.79%</div>
             <div class="demo-stat-label">女性投诉占比</div>
           </div>
           <div class="demo-stat-icon" style="background:rgba(255,107,53,0.12);color:var(--accent-orange)">
@@ -762,7 +763,7 @@ img { max-width: 100%; }
         </div>
         <div class="demo-stat-row">
           <div>
-            <div class="demo-stat-value" style="color:var(--accent-yellow)">24.21%</div>
+            <div class="demo-stat-value" style="color:var(--accent-yellow)" data-id="demographics.maleRate">24.21%</div>
             <div class="demo-stat-label">男性投诉占比</div>
           </div>
           <div class="demo-stat-icon" style="background:rgba(255,170,0,0.12);color:var(--accent-yellow)">
@@ -980,8 +981,109 @@ img { max-width: 100%; }
 
 <!-- ========== JAVASCRIPT ========== -->
 <script>
-(function() {
-  'use strict';
+// ===== DEFAULT DATA (fallback) =====
+const DEFAULT_DATA = {
+  lastUpdated: "2026-04-17",
+  hero: { totalComplaints: 57000, refundRequestRate: 90.83, refundDifficultyRate: 83.77, resolutionRate: 18.95 },
+  overview: { totalAmount: "1.58亿+", cumulativeComplaints: "14.79万件", yearComplaints: 41278, yearAmount: "4,225万元", mediationRate: 62.52 },
+  platforms: [
+    { name: "大麦网", complaints: 85235, resolveRate: "<10%", barWidth: 100 },
+    { name: "猫眼", complaints: 33865, resolveRate: "47.89%", barWidth: 39.7 },
+    { name: "秀动", complaints: 4300, resolveRate: "<10%", barWidth: 5.0 },
+    { name: "淘票票", complaints: 4226, resolveRate: "N/A", barWidth: 5.0 },
+    { name: "纷玩岛", complaints: 477, resolveRate: "<10%", barWidth: 0.6 },
+    { name: "摩天轮票务", complaints: null, resolveRate: "84.49%", barWidth: 0 }
+  ],
+  complaintTypes: [
+    { name: "退改问题", value: 53.93 },
+    { name: "霸王条款", value: 24.59 },
+    { name: "售后服务欠缺", value: 10.63 },
+    { name: "服务态度差", value: 10.85 }
+  ],
+  amountDistribution: [
+    { range: "0-500元", value: 35.45 },
+    { range: "500-1000元", value: 25.55 },
+    { range: "1000-2000元", value: 26.19 },
+    { range: "2000元以上", value: 12.81 }
+  ],
+  demographics: {
+    age: [
+      { range: "20岁以下", value: 8 },
+      { range: "20-30岁", value: 60, label: "超60%" },
+      { range: "30-40岁", value: 22 },
+      { range: "40岁以上", value: 10 }
+    ],
+    femaleRate: 75.79,
+    maleRate: 24.21,
+    cityTierRate: "超60%"
+  }
+};
+
+// ===== LOAD DATA =====
+async function loadData() {
+  try {
+    const resp = await fetch('data.json?t=' + Date.now());
+    if (resp.ok) return await resp.json();
+  } catch(e) { console.warn('data.json 加载失败，使用默认数据'); }
+  return DEFAULT_DATA;
+}
+
+// ===== UPDATE DOM FROM DATA =====
+function updateDOM(data) {
+  // Update update time
+  const timeEl = document.getElementById('updateTime');
+  if (timeEl) timeEl.textContent = '数据更新时间：' + data.lastUpdated;
+
+  // Update hero counters
+  const heroMap = {
+    'hero.totalComplaints': { target: data.hero.totalComplaints },
+    'hero.refundRequestRate': { target: data.hero.refundRequestRate },
+    'hero.refundDifficultyRate': { target: data.hero.refundDifficultyRate },
+    'hero.resolutionRate': { target: data.hero.resolutionRate }
+  };
+  document.querySelectorAll('[data-id^="hero."]').forEach(el => {
+    const mapping = heroMap[el.dataset.id];
+    if (mapping) el.dataset.target = mapping.target;
+  });
+
+  // Update overview cards
+  const ov = data.overview;
+  const overviewMap = {
+    'overview.totalAmount': ov.totalAmount,
+    'overview.cumulativeComplaints': ov.cumulativeComplaints,
+    'overview.yearComplaints': typeof ov.yearComplaints === 'number' ? ov.yearComplaints.toLocaleString() + '件' : ov.yearComplaints,
+    'overview.yearAmount': '涉及金额' + ov.yearAmount,
+    'overview.mediationRate': ov.mediationRate + '%'
+  };
+  Object.entries(overviewMap).forEach(([id, val]) => {
+    const el = document.querySelector('[data-id="' + id + '"]');
+    if (el) el.textContent = val;
+  });
+
+  // Update platform table
+  data.platforms.forEach((p, i) => {
+    const complaintEl = document.querySelector('[data-id="platform.' + i + '.complaints"]');
+    if (complaintEl && p.complaints !== null) complaintEl.textContent = p.complaints.toLocaleString() + '件';
+    if (complaintEl && p.complaints === null) complaintEl.textContent = 'N/A';
+
+    const rateEl = document.querySelector('[data-id="platform.' + i + '.resolveRate"]');
+    if (rateEl) rateEl.textContent = p.resolveRate;
+
+    const barEl = document.querySelector('[data-id="platform.' + i + '.barWidth"]');
+    if (barEl) barEl.dataset.width = p.barWidth;
+  });
+
+  // Update demographics
+  const femaleEl = document.querySelector('[data-id="demographics.femaleRate"]');
+  if (femaleEl) femaleEl.textContent = data.demographics.femaleRate + '%';
+  const maleEl = document.querySelector('[data-id="demographics.maleRate"]');
+  if (maleEl) maleEl.textContent = data.demographics.maleRate + '%';
+}
+
+// ===== MAIN INIT =====
+async function initApp() {
+  const data = await loadData();
+  updateDOM(data);
 
   // ===== NAVIGATION =====
   const nav = document.getElementById('nav');
@@ -1097,13 +1199,14 @@ img { max-width: 100%; }
   // Platform Chart
   const platformCtx = document.getElementById('platformChart');
   if (platformCtx) {
+    const platformData = data.platforms.filter(p => p.complaints !== null);
     new Chart(platformCtx, {
       type: 'bar',
       data: {
-        labels: ['大麦网', '猫眼', '秀动', '淘票票', '纷玩岛'],
+        labels: platformData.map(p => p.name),
         datasets: [{
           label: '投诉量（件）',
-          data: [85235, 33865, 4300, 4226, 477],
+          data: platformData.map(p => p.complaints),
           backgroundColor: [
             'rgba(255, 68, 68, 0.8)',
             'rgba(255, 107, 53, 0.8)',
@@ -1164,9 +1267,9 @@ img { max-width: 100%; }
     new Chart(typeCtx, {
       type: 'doughnut',
       data: {
-        labels: ['退改问题', '霸王条款', '售后服务欠缺', '服务态度差'],
+        labels: data.complaintTypes.map(t => t.name),
         datasets: [{
-          data: [53.93, 24.59, 10.63, 10.85],
+          data: data.complaintTypes.map(t => t.value),
           backgroundColor: [
             'rgba(255, 68, 68, 0.85)',
             'rgba(255, 107, 53, 0.85)',
@@ -1215,10 +1318,10 @@ img { max-width: 100%; }
     new Chart(amountCtx, {
       type: 'bar',
       data: {
-        labels: ['0-500元', '500-1000元', '1000-2000元', '2000元以上'],
+        labels: data.amountDistribution.map(a => a.range),
         datasets: [{
           label: '占比',
-          data: [35.45, 25.55, 26.19, 12.81],
+          data: data.amountDistribution.map(a => a.value),
           backgroundColor: [
             'rgba(255, 68, 68, 0.7)',
             'rgba(255, 107, 53, 0.7)',
@@ -1269,8 +1372,9 @@ img { max-width: 100%; }
       }
     });
   }
+}
 
-})();
+initApp();
 </script>
 </body>
 </html>

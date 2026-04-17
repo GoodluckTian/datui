@@ -1,0 +1,44 @@
+name: 每日数据更新
+
+on:
+  schedule:
+    # 每天北京时间 10:00 执行 (UTC 02:00)
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    # 允许手动触发
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: |
+          pip install requests beautifulsoup4 --break-system-packages
+
+      - name: 运行数据更新脚本
+        run: python update_data.py
+        env:
+          GITHUB_ACTIONS: "true"
+
+      - name: 提交并推送更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          if git diff --cached --quiet; then
+            echo "没有数据变更，跳过提交"
+          else
+            git commit -m "data: 每日数据更新 $(date +%Y-%m-%d)"
+            git push
+          fi
