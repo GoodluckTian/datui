@@ -493,12 +493,11 @@ img { max-width: 100%; }
       大退网
     </a>
     <ul class="nav-links">
-      <li><a href="#overview">数据概览</a></li>
-      <li><a href="#platforms">平台排行</a></li>
-      <li><a href="#analysis">投诉分析</a></li>
+      <li><a href="#source-12315">12315</a></li>
+      <li><a href="#source-heimao">黑猫投诉</a></li>
+      <li><a href="#source-xiaofeibao">消费保</a></li>
+      <li><a href="#source-cca">中消协</a></li>
       <li><a href="#trend">趋势分析</a></li>
-      <li><a href="#demographics">用户画像</a></li>
-      <li><a href="#problems">主要问题</a></li>
       <li><a href="#cases">典型案例</a></li>
       <li><a href="#guide">维权指南</a></li>
     </ul>
@@ -506,12 +505,11 @@ img { max-width: 100%; }
   </div>
 </nav>
 <div class="nav-mobile-menu" id="mobileMenu">
-  <a href="#overview" onclick="closeMobile()">数据概览</a>
-  <a href="#platforms" onclick="closeMobile()">平台排行</a>
-  <a href="#analysis" onclick="closeMobile()">投诉分析</a>
+  <a href="#source-12315" onclick="closeMobile()">12315</a>
+  <a href="#source-heimao" onclick="closeMobile()">黑猫投诉</a>
+  <a href="#source-xiaofeibao" onclick="closeMobile()">消费保</a>
+  <a href="#source-cca" onclick="closeMobile()">中消协</a>
   <a href="#trend" onclick="closeMobile()">趋势分析</a>
-  <a href="#demographics" onclick="closeMobile()">用户画像</a>
-  <a href="#problems" onclick="closeMobile()">主要问题</a>
   <a href="#cases" onclick="closeMobile()">典型案例</a>
   <a href="#guide" onclick="closeMobile()">维权指南</a>
 </div>
@@ -554,152 +552,334 @@ img { max-width: 100%; }
   </div>
 </section>
 
-<!-- ========== DATA OVERVIEW ========== -->
-<section class="section" id="overview">
+<!-- ========== 数据来源: 12315 ========== -->
+<section class="section" id="source-12315">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">DATA OVERVIEW</div>
-      <h2 class="section-title">数据概览</h2>
-      <p class="section-desc">基于黑猫投诉、消费保、12315等公开平台数据，呈现演唱会票务退款投诉全貌。</p>
+      <div class="section-label">数据来源</div>
+      <h2 class="section-title">全国12315平台</h2>
+      <p class="section-desc">国家市场监督管理总局官方投诉平台，最权威的消费者维权数据来源。</p>
+    </div>
+    <div class="overview-grid" style="max-width:600px;margin:0 auto">
+      <div class="overview-card reveal reveal-delay-1">
+        <div class="overview-card-icon red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="overview.mediationRate">62.52%</div>
+        <div class="overview-card-label">2024年全国投诉调解成功率</div>
+        <div class="overview-card-note">票务类投诉解决率远低于平均水平</div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto">
+      <div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.15);border-radius:12px;padding:20px 24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-weight:700;color:var(--accent-red)">数据特点</span>
+        </div>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;padding-left:20px;margin:0">
+          <li>政府官方数据，权威性最高</li>
+          <li>覆盖全国所有消费领域，票务只是其中一部分</li>
+          <li>公开数据以宏观统计为主，缺乏具体票务平台细分</li>
+          <li>数据来源：<a href="https://www.12315.cn" target="_blank" rel="noopener" style="color:var(--accent-red)">www.12315.cn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DATA SOURCE: 黑猫投诉 ========== -->
+<section class="section" id="source-heimao" style="background:var(--bg-secondary)">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">数据来源</div>
+      <h2 class="section-title">黑猫投诉</h2>
+      <p class="section-desc">新浪旗下消费者服务平台，2025年娱乐票务投诉数据最丰富的公开来源。</p>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-card reveal reveal-delay-1">
+        <div class="overview-card-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-orange)" data-id="hero.totalComplaints">57,000+</div>
+        <div class="overview-card-label">2025年娱乐票务投诉</div>
+        <div class="overview-card-note">黑猫投诉平台年度数据</div>
+      </div>
+      <div class="overview-card reveal reveal-delay-2">
+        <div class="overview-card-icon red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="hero.refundDifficultyRate">83.77%</div>
+        <div class="overview-card-label">投诉提及退款困难</div>
+        <div class="overview-card-note">绝大多数投诉涉及退款问题</div>
+      </div>
+      <div class="overview-card reveal reveal-delay-3">
+        <div class="overview-card-icon yellow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-yellow)">超60%</div>
+        <div class="overview-card-label">20-30岁投诉人群</div>
+        <div class="overview-card-note">一二线城市占比超60%</div>
+      </div>
+      <div class="overview-card reveal reveal-delay-4">
+        <div class="overview-card-icon orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-orange)" data-id="hero.resolutionRate">18.95%</div>
+        <div class="overview-card-label">有效解决投诉比例</div>
+        <div class="overview-card-note">平台整体解决率偏低</div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto">
+      <div style="background:rgba(255,107,53,0.06);border:1px solid rgba(255,107,53,0.15);border-radius:12px;padding:20px 24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-weight:700;color:var(--accent-orange)">数据特点</span>
+        </div>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;padding-left:20px;margin:0">
+          <li>娱乐票务领域投诉量最大的第三方平台</li>
+          <li>提供各平台回复率对比数据</li>
+          <li>有详细的用户画像（年龄、性别、城市分布）</li>
+          <li>可追踪月度投诉趋势（2月/五一为投诉高峰）</li>
+          <li>数据来源：<a href="https://tousu.sina.com.cn" target="_blank" rel="noopener" style="color:var(--accent-orange)">tousu.sina.com.cn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DATA SOURCE: 消费保 ========== -->
+<section class="section" id="source-xiaofeibao">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">数据来源</div>
+      <h2 class="section-title">消费保</h2>
+      <p class="section-desc">第三方消费投诉服务平台，提供票务领域最细颗粒度的投诉数据。</p>
     </div>
     <div class="overview-grid">
       <div class="overview-card reveal reveal-delay-1">
         <div class="overview-card-icon red" style="font-size:1.4rem;font-weight:700;line-height:1">¥</div>
         <div class="overview-card-value" style="color:var(--accent-red)" data-id="overview.totalAmount">1.58亿+</div>
         <div class="overview-card-label">涉诉总金额</div>
-        <div class="overview-card-note">消费保平台累计数据（2019-2025）</div>
+        <div class="overview-card-note">2019-2025年累计数据</div>
       </div>
       <div class="overview-card reveal reveal-delay-2">
         <div class="overview-card-icon orange">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="overview-card-value" style="color:var(--accent-orange)" data-id="overview.cumulativeComplaints">14.79万件</div>
-        <div class="overview-card-label">消费保平台累计票务投诉</div>
-        <div class="overview-card-note">2019年至2025年累计数据</div>
+        <div class="overview-card-label">累计票务投诉</div>
+        <div class="overview-card-note">2019年至2025年</div>
       </div>
       <div class="overview-card reveal reveal-delay-3">
         <div class="overview-card-icon yellow">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
         <div class="overview-card-value" style="color:var(--accent-yellow)" data-id="overview.yearComplaints">41,278件</div>
-        <div class="overview-card-label">2025年1-10月票务平台投诉</div>
+        <div class="overview-card-label">2025年1-10月投诉</div>
         <div class="overview-card-note" data-id="overview.yearAmount">涉及金额4,225万元</div>
       </div>
       <div class="overview-card reveal reveal-delay-4">
         <div class="overview-card-icon red">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <div class="overview-card-value" style="color:var(--accent-red)" data-id="overview.mediationRate">62.52%</div>
-        <div class="overview-card-label">2024年全国12315投诉调解成功率</div>
-        <div class="overview-card-note">票务类投诉解决率远低于平均水平</div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="demographics.femaleRate">75.79%</div>
+        <div class="overview-card-label">女性投诉占比</div>
+        <div class="overview-card-note">男性仅占24.21%</div>
+      </div>
+    </div>
+    <!-- Platform ranking table - moved here from old PLATFORM RANKING section -->
+    <div style="margin-top:40px">
+      <div class="reveal">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px">📊 各票务平台投诉量排行</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:20px">数据来源：消费保《票务平台投诉分析报告》</p>
+      </div>
+      <div class="platform-table-wrap reveal">
+        <table class="platform-table">
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>平台</th>
+              <th>投诉量</th>
+              <th style="min-width:180px">投诉量占比</th>
+              <th>解决率</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="platform-rank r1">1</span></td>
+              <td><span class="platform-name">大麦网</span></td>
+              <td style="font-weight:700" data-id="platform.0.complaints">85,235件</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="100" data-id="platform.0.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate low" data-id="platform.0.resolveRate">&lt;10%</span></td>
+            </tr>
+            <tr>
+              <td><span class="platform-rank r2">2</span></td>
+              <td><span class="platform-name">猫眼</span></td>
+              <td style="font-weight:700" data-id="platform.1.complaints">33,865件</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="39.7" data-id="platform.1.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate mid" data-id="platform.1.resolveRate">47.89%</span></td>
+            </tr>
+            <tr>
+              <td><span class="platform-rank r3">3</span></td>
+              <td><span class="platform-name">秀动</span></td>
+              <td style="font-weight:700" data-id="platform.2.complaints">4,300件</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.2.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate low" data-id="platform.2.resolveRate">&lt;10%</span></td>
+            </tr>
+            <tr>
+              <td><span class="platform-rank r4">4</span></td>
+              <td><span class="platform-name">淘票票</span></td>
+              <td style="font-weight:700" data-id="platform.3.complaints">4,226件</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.3.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate" style="color:var(--text-muted)" data-id="platform.3.resolveRate">N/A</span></td>
+            </tr>
+            <tr>
+              <td><span class="platform-rank r5">5</span></td>
+              <td><span class="platform-name">纷玩岛</span></td>
+              <td style="font-weight:700" data-id="platform.4.complaints">477件</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0.6" data-id="platform.4.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate low" data-id="platform.4.resolveRate">&lt;10%</span></td>
+            </tr>
+            <tr>
+              <td><span class="platform-rank r6">6</span></td>
+              <td><span class="platform-name">摩天轮票务</span></td>
+              <td style="font-weight:700;color:var(--text-muted)" data-id="platform.5.complaints">N/A</td>
+              <td>
+                <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0" data-id="platform.5.barWidth"></div></div>
+              </td>
+              <td><span class="resolve-rate high" data-id="platform.5.resolveRate">84.49%</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="chart-container reveal" style="margin-top:32px">
+        <canvas id="platformChart"></canvas>
+      </div>
+    </div>
+    <!-- Complaint type + amount charts - moved here -->
+    <div style="margin-top:40px">
+      <div class="reveal">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px">📈 投诉类型与金额分布</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:20px">数据来源：消费保《票务平台投诉分析报告》</p>
+      </div>
+      <div class="chart-row">
+        <div class="chart-container reveal reveal-delay-1">
+          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:20px">投诉类型分布</h3>
+          <div class="chart-wrapper" style="max-height:360px;display:flex;justify-content:center">
+            <canvas id="typeChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-container reveal reveal-delay-2">
+          <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:20px">涉诉金额分布</h3>
+          <div class="chart-wrapper" style="max-height:360px">
+            <canvas id="amountChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto">
+      <div style="background:rgba(255,68,68,0.06);border:1px solid rgba(255,68,68,0.15);border-radius:12px;padding:20px 24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-weight:700;color:var(--accent-red)">数据特点</span>
+        </div>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;padding-left:20px;margin:0">
+          <li>票务领域数据颗粒度最细的平台</li>
+          <li>提供各平台投诉量、解决率、投诉类型分布</li>
+          <li>独有的涉诉金额分布和性别比例数据</li>
+          <li>大麦网投诉量85,235件居首，但解决率仅&lt;10%</li>
+          <li>数据来源：<a href="https://www.xfb315.com" target="_blank" rel="noopener" style="color:var(--accent-red)">xfb315.com</a></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== PLATFORM RANKING ========== -->
-<section class="section" id="platforms" style="background:var(--bg-secondary)">
+<!-- ========== DATA SOURCE: 中消协 ========== -->
+<section class="section" id="source-cca" style="background:var(--bg-secondary)">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">PLATFORM RANKING</div>
-      <h2 class="section-title">平台投诉排行</h2>
-      <p class="section-desc">各票务平台投诉量及解决率对比，数据来自黑猫投诉及消费保平台公开数据。</p>
+      <div class="section-label">数据来源</div>
+      <h2 class="section-title">中国消费者协会</h2>
+      <p class="section-desc">国家级消费者权益保护组织，提供政策解读和行业问题定性分析。</p>
     </div>
-    <div class="platform-table-wrap reveal">
-      <table class="platform-table">
-        <thead>
-          <tr>
-            <th>排名</th>
-            <th>平台</th>
-            <th>投诉量</th>
-            <th style="min-width:180px">投诉量占比</th>
-            <th>解决率</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="platform-rank r1">1</span></td>
-            <td><span class="platform-name">大麦网</span></td>
-            <td style="font-weight:700" data-id="platform.0.complaints">85,235件</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="100" data-id="platform.0.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate low" data-id="platform.0.resolveRate">&lt;10%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-rank r2">2</span></td>
-            <td><span class="platform-name">猫眼</span></td>
-            <td style="font-weight:700" data-id="platform.1.complaints">33,865件</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="39.7" data-id="platform.1.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate mid" data-id="platform.1.resolveRate">47.89%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-rank r3">3</span></td>
-            <td><span class="platform-name">秀动</span></td>
-            <td style="font-weight:700" data-id="platform.2.complaints">4,300件</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.2.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate low" data-id="platform.2.resolveRate">&lt;10%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-rank r4">4</span></td>
-            <td><span class="platform-name">淘票票</span></td>
-            <td style="font-weight:700" data-id="platform.3.complaints">4,226件</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="5.0" data-id="platform.3.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate" style="color:var(--text-muted)" data-id="platform.3.resolveRate">N/A</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-rank r5">5</span></td>
-            <td><span class="platform-name">纷玩岛</span></td>
-            <td style="font-weight:700" data-id="platform.4.complaints">477件</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0.6" data-id="platform.4.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate low" data-id="platform.4.resolveRate">&lt;10%</span></td>
-          </tr>
-          <tr>
-            <td><span class="platform-rank r6">6</span></td>
-            <td><span class="platform-name">摩天轮票务</span></td>
-            <td style="font-weight:700;color:var(--text-muted)" data-id="platform.5.complaints">N/A</td>
-            <td>
-              <div class="complaint-bar"><div class="complaint-bar-fill" data-width="0" data-id="platform.5.barWidth"></div></div>
-            </td>
-            <td><span class="resolve-rate high" data-id="platform.5.resolveRate">84.49%</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="overview-grid" style="max-width:600px;margin:0 auto">
+      <div class="overview-card reveal reveal-delay-1">
+        <div class="overview-card-icon red">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="overview-card-value" style="color:var(--accent-red)" data-id="hero.refundRequestRate">90.83%</div>
+        <div class="overview-card-label">退款诉求占比</div>
+        <div class="overview-card-note">中消协2025年上半年报告</div>
+      </div>
     </div>
-    <div class="chart-container reveal" style="margin-top:32px">
-      <canvas id="platformChart"></canvas>
-    </div>
-  </div>
-</section>
-
-<!-- ========== COMPLAINT ANALYSIS ========== -->
-<section class="section" id="analysis">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">COMPLAINT ANALYSIS</div>
-      <h2 class="section-title">投诉分析</h2>
-      <p class="section-desc">投诉类型与涉诉金额分布，揭示消费者退款困境的核心问题。</p>
-    </div>
-    <div class="chart-row">
-      <div class="chart-container reveal reveal-delay-1">
-        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:20px">投诉类型分布</h3>
-        <div class="chart-wrapper" style="max-height:360px;display:flex;justify-content:center">
-          <canvas id="typeChart"></canvas>
+    <!-- Move the 五大核心问题 content here -->
+    <div style="margin-top:40px">
+      <div class="reveal">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:16px">⚠️ 演唱会票务五大核心问题</h3>
+        <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:20px">数据来源：中消协《2025年上半年全国消协组织受理投诉情况分析》</p>
+      </div>
+      <div class="problems-grid">
+        <div class="problem-card reveal reveal-delay-1">
+          <div class="problem-num">1</div>
+          <div>
+            <div class="problem-title">退票规则不合理</div>
+            <div class="problem-desc">平台单方面规定"不可退票"或要求提前一个月申请退票，消费者购票后几乎没有退票窗口期，严重侵害消费者公平交易权。</div>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-delay-2">
+          <div class="problem-num">2</div>
+          <div>
+            <div class="problem-title">退票手续费过高</div>
+            <div class="problem-desc">部分平台退票手续费高达票面价格的50%，且手续费阶梯设置不合理，临近演出手续费急剧攀升，消费者实际可退金额微乎其微。</div>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-delay-3">
+          <div class="problem-num">3</div>
+          <div>
+            <div class="problem-title">主办方取消不担责</div>
+            <div class="problem-desc">演唱会主办方临时取消演出，却以各种理由拒绝承担违约责任，消费者不仅无法观演，退款也面临重重阻碍。</div>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-delay-4">
+          <div class="problem-num">4</div>
+          <div>
+            <div class="problem-title">"柱子票"视线遮挡</div>
+            <div class="problem-desc">消费者购买高价门票到场后发现座位被柱子遮挡，无法正常观看演出，平台和主办方拒绝退票或补偿。</div>
+          </div>
+        </div>
+        <div class="problem-card reveal reveal-delay-5">
+          <div class="problem-num">5</div>
+          <div>
+            <div class="problem-title">强实名制不可退换</div>
+            <div class="problem-desc">强实名制购票后，因不可抗力或个人原因无法到场，平台以实名制为由拒绝退票或变更观演人，消费者损失惨重。</div>
+          </div>
         </div>
       </div>
-      <div class="chart-container reveal reveal-delay-2">
-        <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:20px">涉诉金额分布</h3>
-        <div class="chart-wrapper" style="max-height:360px">
-          <canvas id="amountChart"></canvas>
+    </div>
+    <div class="reveal" style="margin-top:32px;max-width:700px;margin-left:auto;margin-right:auto">
+      <div style="background:rgba(255,107,53,0.06);border:1px solid rgba(255,107,53,0.15);border-radius:12px;padding:20px 24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span style="font-weight:700;color:var(--accent-orange)">数据特点</span>
         </div>
+        <ul style="color:var(--text-secondary);font-size:0.9rem;line-height:1.8;padding-left:20px;margin:0">
+          <li>最权威的消费者权益保护机构</li>
+          <li>以定性分析和政策建议为主</li>
+          <li>提供行业整体问题分类和趋势判断</li>
+          <li>推动"阶梯退票"等行业规范的制定</li>
+          <li>数据来源：<a href="https://www.cca.org.cn" target="_blank" rel="noopener" style="color:var(--accent-orange)">www.cca.org.cn</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -709,7 +889,6 @@ img { max-width: 100%; }
 <section id="trend" class="section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title-en">TREND ANALYSIS</h2>
       <h2 class="section-title">趋势分析</h2>
       <p class="section-desc">追踪投诉数据变化趋势，洞察行业动态</p>
     </div>
@@ -720,129 +899,11 @@ img { max-width: 100%; }
   </div>
 </section>
 
-<!-- ========== DEMOGRAPHICS ========== -->
-<section class="section" id="demographics" style="background:var(--bg-secondary)">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">USER PROFILE</div>
-      <h2 class="section-title">用户画像</h2>
-      <p class="section-desc">谁在投诉？投诉人群的年龄、性别与地域分布特征。</p>
-    </div>
-    <div class="demographics-grid">
-      <div class="demo-card reveal reveal-delay-1">
-        <div class="demo-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          年龄分布
-        </div>
-        <div class="demo-bar-group">
-          <div class="demo-bar-item">
-            <label><span>20岁以下</span><span>~8%</span></label>
-            <div class="demo-bar"><div class="demo-bar-fill" data-width="8"></div></div>
-          </div>
-          <div class="demo-bar-item">
-            <label><span>20-30岁</span><span style="color:var(--accent-red)">超60%</span></label>
-            <div class="demo-bar"><div class="demo-bar-fill" data-width="60"></div></div>
-          </div>
-          <div class="demo-bar-item">
-            <label><span>30-40岁</span><span>~22%</span></label>
-            <div class="demo-bar"><div class="demo-bar-fill" data-width="22"></div></div>
-          </div>
-          <div class="demo-bar-item">
-            <label><span>40岁以上</span><span>~10%</span></label>
-            <div class="demo-bar"><div class="demo-bar-fill" data-width="10"></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="demo-card reveal reveal-delay-2">
-        <div class="demo-card-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          性别与地域
-        </div>
-        <div class="demo-stat-row">
-          <div>
-            <div class="demo-stat-value" style="color:var(--accent-orange)" data-id="demographics.femaleRate">75.79%</div>
-            <div class="demo-stat-label">女性投诉占比</div>
-          </div>
-          <div class="demo-stat-icon" style="background:rgba(255,107,53,0.12);color:var(--accent-orange)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M12 13v8"/></svg>
-          </div>
-        </div>
-        <div class="demo-stat-row">
-          <div>
-            <div class="demo-stat-value" style="color:var(--accent-red)">超60%</div>
-            <div class="demo-stat-label">一二线城市投诉</div>
-          </div>
-          <div class="demo-stat-icon" style="background:rgba(255,68,68,0.12);color:var(--accent-red)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-        </div>
-        <div class="demo-stat-row">
-          <div>
-            <div class="demo-stat-value" style="color:var(--accent-yellow)" data-id="demographics.maleRate">24.21%</div>
-            <div class="demo-stat-label">男性投诉占比</div>
-          </div>
-          <div class="demo-stat-icon" style="background:rgba(255,170,0,0.12);color:var(--accent-yellow)">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M12 13v8"/></svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== MAIN PROBLEMS ========== -->
-<section class="section" id="problems">
-  <div class="container">
-    <div class="reveal">
-      <div class="section-label">KEY PROBLEMS</div>
-      <h2 class="section-title">五大核心问题</h2>
-      <p class="section-desc">根据中消协2025年上半年报告及公开投诉数据，演唱会票务退款存在以下主要问题。</p>
-    </div>
-    <div class="problems-grid">
-      <div class="problem-card reveal reveal-delay-1">
-        <div class="problem-num">1</div>
-        <div>
-          <div class="problem-title">退票规则不合理</div>
-          <div class="problem-desc">平台单方面规定"不可退票"或要求提前一个月申请退票，消费者购票后几乎没有退票窗口期，严重侵害消费者公平交易权。</div>
-        </div>
-      </div>
-      <div class="problem-card reveal reveal-delay-2">
-        <div class="problem-num">2</div>
-        <div>
-          <div class="problem-title">退票手续费过高</div>
-          <div class="problem-desc">部分平台退票手续费高达票面价格的50%，且手续费阶梯设置不合理，临近演出手续费急剧攀升，消费者实际可退金额微乎其微。</div>
-        </div>
-      </div>
-      <div class="problem-card reveal reveal-delay-3">
-        <div class="problem-num">3</div>
-        <div>
-          <div class="problem-title">主办方取消不担责</div>
-          <div class="problem-desc">演唱会主办方临时取消演出，却以各种理由拒绝承担违约责任，消费者不仅无法观演，退款也面临重重阻碍。</div>
-        </div>
-      </div>
-      <div class="problem-card reveal reveal-delay-4">
-        <div class="problem-num">4</div>
-        <div>
-          <div class="problem-title">"柱子票"视线遮挡</div>
-          <div class="problem-desc">消费者购买高价门票到场后发现座位被柱子遮挡，无法正常观看演出，平台和主办方拒绝退票或补偿。</div>
-        </div>
-      </div>
-      <div class="problem-card reveal reveal-delay-5">
-        <div class="problem-num">5</div>
-        <div>
-          <div class="problem-title">强实名制不可退换</div>
-          <div class="problem-desc">强实名制购票后，因不可抗力或个人原因无法到场，平台以实名制为由拒绝退票或变更观演人，消费者损失惨重。</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ========== TYPICAL CASES ========== -->
 <section class="section" id="cases" style="background:var(--bg-secondary)">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">CASE STUDIES</div>
+      <div class="section-label">典型案例</div>
       <h2 class="section-title">典型案例</h2>
       <p class="section-desc">来自真实投诉的典型案例，揭示消费者在退票过程中遭遇的具体困境。</p>
     </div>
@@ -900,7 +961,7 @@ img { max-width: 100%; }
 <section class="section" id="guide">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">YOUR RIGHTS</div>
+      <div class="section-label">维权指南</div>
       <h2 class="section-title">维权指南</h2>
       <p class="section-desc">了解你的消费者权利，掌握有效的投诉渠道和维权方法。</p>
     </div>
