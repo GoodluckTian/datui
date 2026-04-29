@@ -6,7 +6,7 @@
 
 - **技术栈**：纯静态单页 HTML + CSS + JavaScript，使用 Chart.js 绘制图表，Google Fonts 加载中文字体
 - **部署方式**：Gitee 代码托管 + Netlify 静态网站托管
-- **在线地址**：https://beamish-stroopwafel-6396c7.netlify.app
+- **在线地址**：[https://datui.netlify.app](https://datui.netlify.app/)
 
 ---
 
