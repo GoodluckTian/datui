@@ -25,6 +25,11 @@ import os
 import re
 import subprocess
 import sys
+import hashlib
+import time
+import random
+import string
+import copy
 from datetime import datetime, date
 
 # ============================================================
@@ -154,10 +159,10 @@ def save_data(data):
 
 def scrape_heimao():
     """
-    从黑猫投诉 (tousu.sina.cn) 抓取"演唱会退票"相关投诉数据。
+    从黑猫投诉 (tousu.sina.com.cn) 抓取"演唱会退票"相关投诉数据。
 
-    搜索页面可能会返回投诉总数或搜索结果数量。
-    由于反爬机制，此函数可能无法获取数据，此时返回 None。
+    使用签名算法调用搜索 API，获取投诉数量。
+    签名算法：将 [ts, rs, "$d6eb7ff91ee257475%", keywords, page_size, page] 排序后拼接，SHA256。
 
     返回值示例：
       {"totalComplaints": 57000} 或 None
@@ -166,124 +171,187 @@ def scrape_heimao():
     result = {}
 
     try:
-        # 黑猫投诉搜索接口
-        search_url = "https://tousu.sina.cn/search"
+        keywords = "演唱会退票"
+        page_size = 10
+        page = 1
+
+        # 生成签名参数
+        ts = str(int(time.time() * 1000))
+        chars = string.ascii_letters + string.digits
+        rs = ''.join(random.choice(chars) for _ in range(16))
+        salt = "$d6eb7ff91ee257475%"
+
+        parts = sorted([ts, rs, salt, keywords, str(page_size), str(page)])
+        plaintext = ''.join(parts)
+        signature = hashlib.sha256(plaintext.encode('utf-8')).hexdigest()
+
+        # 搜索 API
+        search_url = "https://tousu.sina.com.cn/index/search/"
         params = {
-            "q": "演唱会退票",
-            "type": "1",
+            "keywords": keywords,
+            "page_size": page_size,
+            "page": page,
+            "ts": ts,
+            "rs": rs,
+            "signature": signature,
+        }
+        headers = {
+            "User-Agent": HEADERS["User-Agent"],
+            "Referer": "https://tousu.sina.com.cn/",
+            "X-Requested-With": "XMLHttpRequest",
         }
         resp = requests.get(
             search_url,
             params=params,
-            headers=HEADERS,
+            headers=headers,
             timeout=REQUEST_TIMEOUT,
-            allow_redirects=True,
+            allow_redirects=False,
         )
+
+        # 检查是否被重定向到登录页
+        if resp.status_code in (301, 302):
+            print("  -> 黑猫投诉: 搜索需要登录，尝试备用方案...")
+
+            # 备用方案：从首页获取累计投诉总量
+            try:
+                resp2 = requests.get(
+                    "https://tousu.sina.com.cn/",
+                    headers=HEADERS,
+                    timeout=REQUEST_TIMEOUT,
+                )
+                resp2.encoding = "utf-8"
+                soup = BeautifulSoup(resp2.text, "html.parser")
+                # 首页通常显示"累计有效投诉 XXXXX 条"
+                page_text = soup.get_text()
+                total_match = re.search(r"累计.*?(\d[\d,]+).*?投诉", page_text)
+                if total_match:
+                    total = safe_int(total_match.group(1))
+                    if total and total > 1000:
+                        result["totalComplaints"] = total
+                        print(f"  -> 黑猫投诉累计投诉量: {total:,} 条")
+            except Exception as e:
+                print(f"  -> 黑猫投诉备用方案也失败: {e}")
+
+            return result if result else None
+
         resp.raise_for_status()
         resp.encoding = "utf-8"
 
-        soup = BeautifulSoup(resp.text, "html.parser")
+        # 解析 JSONP 响应
+        text = resp.text
+        # 去除 JSONP 包裹: try{jQuery...( 或直接 JSON
+        json_match = re.search(r'\{.*"result".*\}', text, re.DOTALL)
+        if not json_match:
+            print("  -> 黑猫投诉: 返回数据格式无法解析")
+            return None
 
-        # 尝试从页面中提取投诉总数
-        # 黑猫投诉的搜索结果页通常包含类似 "共找到 XXXX 条结果" 的文本
-        count_text = soup.find(string=re.compile(r"共.*?(\d+).*?条"))
-        if count_text:
-            count = safe_int(count_text)
-            if count and count > 0:
-                result["totalComplaints"] = count
-                print(f"  -> 黑猫投诉搜索结果: {count} 条")
+        data = json.loads(json_match.group())
 
-        # 尝试从搜索结果中提取各平台的投诉数量
-        # 查找包含平台名称的投诉条目
-        platform_keywords = {
-            "大麦网": ["大麦", "damai"],
-            "猫眼": ["猫眼", "maoyan"],
-            "秀动": ["秀动", "showstart"],
-            "淘票票": ["淘票票", "taopiaopiao"],
-            "纷玩岛": ["纷玩岛"],
-            "摩天轮票务": ["摩天轮"],
-        }
+        if data.get("result", {}).get("status", {}).get("code") == 0:
+            lists = data.get("result", {}).get("data", {}).get("lists", [])
+            if lists:
+                result["totalComplaints"] = len(lists)
+                print(f"  -> 黑猫投诉搜索结果: 本页 {len(lists)} 条")
 
-        # 查找所有投诉卡片/列表项
-        items = soup.select(".list-item, .search-result-item, .complaint-item, li")
-        for item in items:
-            text = item.get_text(strip=True)
-            for platform, keywords in platform_keywords.items():
-                if any(kw in text.lower() for kw in keywords):
-                    # 尝试提取投诉数量（如果有）
-                    # 这里的逻辑取决于页面结构，可能需要调整
-                    pass
+                # 尝试从标题中提取各平台投诉数量
+                platform_counts = {}
+                for item in lists:
+                    title = item.get("main", {}).get("title", "")
+                    for platform in ["大麦", "猫眼", "秀动", "淘票票", "纷玩岛", "摩天轮"]:
+                        if platform in title:
+                            platform_counts[platform] = platform_counts.get(platform, 0) + 1
 
-        if result:
-            print(f"  -> 黑猫投诉数据获取成功: {result}")
+                if platform_counts:
+                    print(f"  -> 各平台提及次数: {platform_counts}")
         else:
-            print("  -> 黑猫投诉: 未能提取到有效数据（可能被反爬拦截）")
+            print("  -> 黑猫投诉: API 返回非成功状态")
 
     except requests.RequestException as e:
         print(f"  -> 黑猫投诉请求失败: {e}")
-    except Exception as e:
+    except (json.JSONDecodeError, KeyError) as e:
         print(f"  -> 黑猫投诉解析失败: {e}")
+    except Exception as e:
+        print(f"  -> 黑猫投诉未知错误: {e}")
 
     return result if result else None
 
 
 def scrape_xiaofeibao():
     """
-    从消费保 (xfb315.com) 抓取演唱会退票相关投诉数据。
+    从消费保 (xfb315.com) 抓取各票务平台的投诉数据。
 
-    消费保是一个消费投诉平台，可能包含各票务平台的投诉统计。
+    使用官方 API (api.xfb315.com) 获取品牌统计数据。
+    API: GET /brand/getBrandStatistics?brand_id={id}&type=all
+    已知品牌ID：大麦网=18293, 猫眼=18295, 摩天轮票务=18319
 
     返回值示例：
-      {"platforms": [...]} 或 None
+      {"platforms": [{"name": "大麦网", "complaints": 105803, "resolveRate": "5.62%"}, ...]} 或 None
     """
     print("[抓取] 正在从消费保获取数据...")
-    result = {}
 
-    try:
-        # 消费保搜索页面
-        search_url = "https://www.xfb315.com/search"
-        params = {
-            "keyword": "演唱会退票",
-        }
-        resp = requests.get(
-            search_url,
-            params=params,
-            headers=HEADERS,
-            timeout=REQUEST_TIMEOUT,
-            allow_redirects=True,
-        )
-        resp.raise_for_status()
-        resp.encoding = "utf-8"
+    # 各票务平台的品牌ID
+    brand_ids = {
+        "大麦网": 18293,
+        "猫眼": 18295,
+        "摩天轮票务": 18319,
+    }
 
-        soup = BeautifulSoup(resp.text, "html.parser")
+    api_base = "https://api.xfb315.com/brand/getBrandStatistics"
+    platforms_data = []
 
-        # 尝试提取投诉总数
-        count_elements = soup.find_all(string=re.compile(r"\d+.*?条"))
-        for elem in count_elements:
-            count = safe_int(elem)
-            if count and count > 100:  # 过滤掉过小的数字
-                result["totalComplaints"] = count
-                print(f"  -> 消费保投诉数量: {count}")
-                break
+    for platform_name, brand_id in brand_ids.items():
+        try:
+            params = {"brand_id": brand_id, "type": "all"}
+            headers = {
+                "User-Agent": HEADERS["User-Agent"],
+                "Referer": f"https://www.xfb315.com/brands/data_{brand_id}.html",
+            }
+            resp = requests.get(
+                api_base,
+                params=params,
+                headers=headers,
+                timeout=REQUEST_TIMEOUT,
+            )
 
-        if result:
-            print(f"  -> 消费保数据获取成功: {result}")
-        else:
-            print("  -> 消费保: 未能提取到有效数据")
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("code") == 200 and data.get("data"):
+                    d = data["data"]
+                    total = d.get("total")
+                    solve_rate = d.get("solve_rate")
 
-    except requests.RequestException as e:
-        print(f"  -> 消费保请求失败: {e}")
-    except Exception as e:
-        print(f"  -> 消费保解析失败: {e}")
+                    if total:
+                        platforms_data.append({
+                            "name": platform_name,
+                            "complaints": total,
+                            "resolveRate": f"{solve_rate}%" if solve_rate else "N/A",
+                        })
+                        print(f"  -> {platform_name}: 投诉量={total:,}, 解决率={solve_rate or 'N/A'}%")
+                    else:
+                        print(f"  -> {platform_name}: 无投诉量数据")
+                else:
+                    print(f"  -> {platform_name}: API 返回错误 - {data.get('msg', '未知')}")
+            else:
+                print(f"  -> {platform_name}: HTTP {resp.status_code}")
 
-    return result if result else None
+        except requests.RequestException as e:
+            print(f"  -> {platform_name}: 请求失败 - {e}")
+        except (json.JSONDecodeError, KeyError) as e:
+            print(f"  -> {platform_name}: 解析失败 - {e}")
+
+    if platforms_data:
+        return {"platforms": platforms_data}
+    return None
 
 
 def scrape_12315():
     """
     从12315投诉公示平台 (tsgs.12315.cn) 获取公开统计数据。
 
-    12315首页通常会展示一些公开的统计信息，如投诉总量、调解率等。
+    使用官方 JSON API 接口：
+      - threeRdsp: 热点商品/服务统计（含投诉量、调解成功率）
+      - threeRdwt: 热点问题统计（含投诉量、调解成功率）
+      - visitSearch: 网站访问量
 
     返回值示例：
       {"mediationRate": 62.52, "totalComplaintsCumulative": "14.79万件"} 或 None
@@ -291,45 +359,108 @@ def scrape_12315():
     print("[抓取] 正在从12315投诉公示平台获取数据...")
     result = {}
 
+    base_api = "https://tsgs.12315.cn/zjtsgs_server"
+    cache_buster = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+
     try:
-        base_url = "https://tsgs.12315.cn"
+        # 1. 获取热点商品/服务统计（全国数据）
+        api_url = f"{base_api}/ttsrdspfuCompute/threeRdsp"
+        params = {"citycode": "XXXXXXXX", "_t": cache_buster}
+
         resp = requests.get(
-            base_url,
+            api_url,
+            params=params,
             headers=HEADERS,
             timeout=REQUEST_TIMEOUT,
-            allow_redirects=True,
         )
-        resp.raise_for_status()
-        resp.encoding = "utf-8"
 
-        soup = BeautifulSoup(resp.text, "html.parser")
+        if resp.status_code == 200:
+            try:
+                data = resp.json()
+                if data.get("state") == 200 and data.get("data"):
+                    children = data["data"][0].get("children", [])
+                    # 计算所有品类的总投诉量和平均调解率
+                    total_count = 0
+                    total_rate = 0
+                    rate_count = 0
+                    for item in children:
+                        count = safe_int(item.get("gldCount"))
+                        if count:
+                            total_count += count
+                        rate = safe_float(item.get("tstjcgl"))
+                        if rate:
+                            total_rate += rate
+                            rate_count += 1
 
-        # 尝试提取页面中的统计数据
-        # 12315首页可能包含调解率、投诉总量等信息
-        page_text = soup.get_text(strip=True)
+                    if total_count > 0:
+                        # 将近30天数据推算为年度数据（粗略估算）
+                        result["yearComplaints"] = total_count * 12
+                        print(f"  -> 12315热点商品近30天投诉量: {total_count:,}")
 
-        # 尝试匹配调解率（百分比格式）
-        mediation_match = re.search(r"调解[率成功率][：:\s]*(\d+\.?\d*)%?", page_text)
-        if mediation_match:
-            rate = safe_float(mediation_match.group(1))
-            if rate:
-                result["mediationRate"] = rate
-                print(f"  -> 12315调解率: {rate}%")
+                    if rate_count > 0:
+                        avg_rate = round(total_rate / rate_count, 2)
+                        result["mediationRate"] = avg_rate
+                        print(f"  -> 12315平均调解成功率: {avg_rate}%")
+            except (json.JSONDecodeError, KeyError, IndexError) as e:
+                print(f"  -> 12315热点商品接口解析失败: {e}")
 
-        # 尝试匹配投诉总量（万件格式）
-        total_match = re.search(r"(\d+\.?\d*)\s*万件", page_text)
-        if total_match:
-            result["totalComplaintsCumulative"] = f"{total_match.group(1)}万件"
-            print(f"  -> 12315投诉总量: {total_match.group(1)}万件")
+        # 2. 获取热点问题统计
+        cache_buster2 = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        api_url2 = f"{base_api}/ttsrdwtCompute/threeRdwt"
+        params2 = {"citycode": "XXXXXXXX", "_t": cache_buster2}
 
-        # 尝试匹配金额（亿元格式）
-        amount_match = re.search(r"(\d+\.?\d*)\s*亿", page_text)
-        if amount_match:
-            result["totalAmount"] = f"{amount_match.group(1)}亿+"
-            print(f"  -> 12315涉及金额: {amount_match.group(1)}亿")
+        resp2 = requests.get(
+            api_url2,
+            params=params2,
+            headers=HEADERS,
+            timeout=REQUEST_TIMEOUT,
+        )
+
+        if resp2.status_code == 200:
+            try:
+                data2 = resp2.json()
+                if data2.get("state") == 200 and data2.get("data"):
+                    children2 = data2["data"][0].get("children", [])
+                    total_count2 = 0
+                    for item in children2:
+                        count = safe_int(item.get("gldCount"))
+                        if count:
+                            total_count2 += count
+
+                    if total_count2 > 0:
+                        # 合并到年度投诉量（避免重复计算，取较大值）
+                        current = result.get("yearComplaints", 0)
+                        estimated = total_count2 * 12
+                        result["yearComplaints"] = max(current, estimated)
+                        print(f"  -> 12315热点问题近30天投诉量: {total_count2:,}")
+            except (json.JSONDecodeError, KeyError, IndexError) as e:
+                print(f"  -> 12315热点问题接口解析失败: {e}")
+
+        # 3. 获取网站访问量
+        cache_buster3 = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8))
+        api_url3 = f"{base_api}/tVisitsDomainLog/visitSearch"
+        params3 = {"_t": cache_buster3}
+
+        resp3 = requests.get(
+            api_url3,
+            params=params3,
+            headers=HEADERS,
+            timeout=REQUEST_TIMEOUT,
+        )
+
+        if resp3.status_code == 200:
+            try:
+                data3 = resp3.json()
+                if data3.get("state") == 200 and data3.get("data"):
+                    visits = data3["data"]
+                    total_visits = visits.get("C", 0)
+                    if total_visits > 0:
+                        print(f"  -> 12315网站总访问量: {total_visits:,}")
+            except (json.JSONDecodeError, KeyError, IndexError):
+                pass
 
         if result:
-            print(f"  -> 12315数据获取成功: {result}")
+            print(f"  -> 12315数据获取成功: {list(result.keys())}")
         else:
             print("  -> 12315: 未能提取到有效数据")
 
@@ -354,7 +485,7 @@ def merge_data(existing, heimao_data, xfb_data, data_12315):
       - 如果某个数据源抓取失败（返回 None），则保留原有数据
       - lastUpdated 字段始终更新为当天日期
     """
-    updated = existing.copy()
+    updated = copy.deepcopy(existing)
 
     # 始终更新最后更新日期
     updated["lastUpdated"] = date.today().isoformat()
@@ -366,15 +497,29 @@ def merge_data(existing, heimao_data, xfb_data, data_12315):
                 updated["hero"] = {}
             updated["hero"]["totalComplaints"] = heimao_data["totalComplaints"]
 
-    # 合并消费保数据
-    if xfb_data:
-        if "totalComplaints" in xfb_data and xfb_data["totalComplaints"]:
-            if "hero" not in updated:
-                updated["hero"] = {}
-            # 如果黑猫投诉也提供了数据，取较大值
-            current = updated["hero"].get("totalComplaints", 0)
-            if xfb_data["totalComplaints"] > current:
-                updated["hero"]["totalComplaints"] = xfb_data["totalComplaints"]
+    # 合并消费保数据（平台级别数据）
+    if xfb_data and "platforms" in xfb_data:
+        if "platforms" not in updated:
+            updated["platforms"] = []
+        # 更新已有平台的投诉量和解决率
+        for new_p in xfb_data["platforms"]:
+            found = False
+            for old_p in updated["platforms"]:
+                if old_p.get("name") == new_p.get("name"):
+                    if new_p.get("complaints") is not None:
+                        old_p["complaints"] = new_p["complaints"]
+                        # 更新 barWidth（基于大麦网的比例）
+                        max_complaints = max(
+                            (p.get("complaints") for p in updated["platforms"] if p.get("complaints")),
+                            default=1
+                        )
+                        old_p["barWidth"] = round(new_p["complaints"] / max_complaints * 100, 1) if max_complaints else 0
+                    if new_p.get("resolveRate") and new_p["resolveRate"] != "N/A":
+                        old_p["resolveRate"] = new_p["resolveRate"]
+                    found = True
+                    break
+            if not found:
+                updated["platforms"].append(new_p)
 
     # 合并12315数据
     if data_12315:
@@ -392,6 +537,11 @@ def merge_data(existing, heimao_data, xfb_data, data_12315):
             if "overview" not in updated:
                 updated["overview"] = {}
             updated["overview"]["totalAmount"] = data_12315["totalAmount"]
+
+        if "yearComplaints" in data_12315 and data_12315["yearComplaints"]:
+            if "overview" not in updated:
+                updated["overview"] = {}
+            updated["overview"]["yearComplaints"] = data_12315["yearComplaints"]
 
     return updated
 
