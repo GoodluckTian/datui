@@ -491,13 +491,13 @@ def main():
     print("\n[步骤3] 合并数据...")
     updated_data = merge_data(existing_data, heimao_data, xfb_data, data_12315)
 
-    # 判断是否有实质性数据变更（排除 lastUpdated 字段）
-    old_for_compare = {k: v for k, v in existing_data.items() if k != "lastUpdated"}
-    new_for_compare = {k: v for k, v in updated_data.items() if k != "lastUpdated"}
+    # 判断是否有实质性数据变更（排除 lastUpdated 和 history 字段）
+    old_for_compare = {k: v for k, v in existing_data.items() if k not in ("lastUpdated", "history")}
+    new_for_compare = {k: v for k, v in updated_data.items() if k not in ("lastUpdated", "history")}
     data_changed = old_for_compare != new_for_compare
 
     if data_changed:
-        print("  -> 检测到数据变更，将更新 data.json")
+        print("  -> 检测到数据变更，将更新 data.js")
     else:
         print("  -> 数据无实质性变更，仅更新时间戳")
 
@@ -534,13 +534,18 @@ def main():
         updated_data["history"] = updated_data["history"][-365:]
         print(f"  -> 历史记录已裁剪至最近365天")
 
+    # 检查 history 是否有变更
+    old_history = existing_data.get("history", [])
+    new_history = updated_data.get("history", [])
+    history_changed = len(old_history) != len(new_history)
+
     # 第五步：保存数据
     print("\n[步骤5] 保存数据...")
     save_data(updated_data)
 
     # 第六步：Git 提交和推送
     print("\n[步骤6] Git 操作...")
-    git_commit_and_push(data_changed)
+    git_commit_and_push(data_changed or history_changed)
 
     print("\n" + "=" * 60)
     print("数据更新脚本执行完毕")
