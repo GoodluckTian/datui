@@ -9,22 +9,22 @@ const SITE_DATA = {
   "overview": {
     "totalAmount": "1.58亿+",
     "totalComplaintsCumulative": "14.79万件",
-    "yearComplaints": 41278,
+    "yearComplaints": 2796756,
     "yearAmount": "4,225万元",
-    "mediationRate": 62.52
+    "mediationRate": 53.79
   },
   "platforms": [
     {
       "name": "大麦网",
-      "complaints": 85235,
-      "resolveRate": "<10%",
-      "barWidth": 100
+      "complaints": 105803,
+      "resolveRate": "5.62%",
+      "barWidth": 100.0
     },
     {
       "name": "猫眼",
-      "complaints": 33865,
-      "resolveRate": "47.89%",
-      "barWidth": 39.7
+      "complaints": 45716,
+      "resolveRate": "32.49%",
+      "barWidth": 43.2
     },
     {
       "name": "秀动",
@@ -46,9 +46,9 @@ const SITE_DATA = {
     },
     {
       "name": "摩天轮票务",
-      "complaints": null,
-      "resolveRate": "84.49%",
-      "barWidth": 0
+      "complaints": 3033,
+      "resolveRate": "64.95%",
+      "barWidth": 2.9
     }
   ],
   "complaintTypes": [
