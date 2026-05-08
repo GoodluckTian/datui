@@ -16,45 +16,39 @@ const SITE_DATA = {
   "platforms": [
     {
       "name": "大麦网",
-      "complaints": 19521,
-      "resolveRate": "3.68%",
+      "complaints": 105817,
+      "resolveRate": "5.62%",
       "barWidth": 100.0
     },
     {
       "name": "猫眼",
-      "complaints": 12384,
-      "resolveRate": "47.89%",
-      "barWidth": 63.4
-    },
-    {
-      "name": "淘票票",
-      "complaints": 1608,
-      "resolveRate": "6.03%",
-      "barWidth": 8.2
-    },
-    {
-      "name": "票星球",
-      "complaints": 1551,
-      "resolveRate": "11.41%",
-      "barWidth": 7.9
-    },
-    {
-      "name": "摩天轮票务",
-      "complaints": 3033,
-      "resolveRate": "84.49%",
-      "barWidth": 15.5
+      "complaints": 45716,
+      "resolveRate": "32.49%",
+      "barWidth": 43.2
     },
     {
       "name": "秀动",
       "complaints": 4300,
       "resolveRate": "0%",
-      "barWidth": 22.0
+      "barWidth": 4.1
+    },
+    {
+      "name": "淘票票",
+      "complaints": 4226,
+      "resolveRate": "6.03%",
+      "barWidth": 4.0
+    },
+    {
+      "name": "摩天轮票务",
+      "complaints": 3033,
+      "resolveRate": "64.95%",
+      "barWidth": 2.9
     },
     {
       "name": "纷玩岛",
       "complaints": 477,
       "resolveRate": "0%",
-      "barWidth": 2.4
+      "barWidth": 0.5
     }
   ],
   "complaintTypes": [
@@ -693,11 +687,11 @@ const SITE_DATA = {
       "platforms": [
         {
           "name": "大麦网",
-          "complaints": 19521
+          "complaints": 105817
         },
         {
           "name": "猫眼",
-          "complaints": 12384
+          "complaints": 45716
         },
         {
           "name": "秀动",
@@ -705,7 +699,7 @@ const SITE_DATA = {
         },
         {
           "name": "淘票票",
-          "complaints": 1608
+          "complaints": 4226
         },
         {
           "name": "纷玩岛",
