@@ -1,5 +1,5 @@
 const SITE_DATA = {
-  "lastUpdated": "2026-05-07",
+  "lastUpdated": "2026-05-08",
   "hero": {
     "totalComplaints": 57000,
     "refundRequestRate": 90.83,
@@ -7,8 +7,8 @@ const SITE_DATA = {
     "resolutionRate": 18.95
   },
   "overview": {
-    "totalAmount": "1.58亿+",
-    "totalComplaintsCumulative": "14.79万件",
+    "totalAmount": "4,225万元",
+    "totalComplaintsCumulative": "41,278件",
     "yearComplaints": 2796756,
     "yearAmount": "4,225万元",
     "mediationRate": 53.79
@@ -16,49 +16,59 @@ const SITE_DATA = {
   "platforms": [
     {
       "name": "大麦网",
-      "complaints": 105803,
-      "resolveRate": "5.62%",
+      "complaints": 19521,
+      "resolveRate": "3.68%",
       "barWidth": 100.0
     },
     {
       "name": "猫眼",
-      "complaints": 45716,
-      "resolveRate": "32.49%",
-      "barWidth": 43.2
-    },
-    {
-      "name": "秀动",
-      "complaints": 4300,
-      "resolveRate": "<10%",
-      "barWidth": 5.0
+      "complaints": 12384,
+      "resolveRate": "47.89%",
+      "barWidth": 63.4
     },
     {
       "name": "淘票票",
-      "complaints": 4226,
-      "resolveRate": "N/A",
-      "barWidth": 5.0
+      "complaints": 1608,
+      "resolveRate": "6.03%",
+      "barWidth": 8.2
     },
     {
-      "name": "纷玩岛",
-      "complaints": 477,
-      "resolveRate": "<10%",
-      "barWidth": 0.6
+      "name": "票星球",
+      "complaints": 1551,
+      "resolveRate": "11.41%",
+      "barWidth": 7.9
     },
     {
       "name": "摩天轮票务",
       "complaints": 3033,
-      "resolveRate": "64.95%",
-      "barWidth": 2.9
+      "resolveRate": "84.49%",
+      "barWidth": 15.5
+    },
+    {
+      "name": "秀动",
+      "complaints": 4300,
+      "resolveRate": "0%",
+      "barWidth": 22.0
+    },
+    {
+      "name": "纷玩岛",
+      "complaints": 477,
+      "resolveRate": "0%",
+      "barWidth": 2.4
     }
   ],
   "complaintTypes": [
     {
-      "name": "退改问题",
-      "value": 53.93
+      "name": "退款纠纷",
+      "value": 30.34
     },
     {
       "name": "霸王条款",
-      "value": 24.59
+      "value": 21.52
+    },
+    {
+      "name": "服务不到位",
+      "value": 19.95
     },
     {
       "name": "售后服务欠缺",
@@ -90,21 +100,24 @@ const SITE_DATA = {
   "demographics": {
     "age": [
       {
-        "range": "20岁以下",
-        "value": 8
+        "range": "00后",
+        "value": 53.23,
+        "label": "超53%"
       },
       {
-        "range": "20-30岁",
-        "value": 60,
-        "label": "超60%"
+        "range": "90后",
+        "value": 36.16,
+        "label": "36%"
       },
       {
-        "range": "30-40岁",
-        "value": 22
+        "range": "80后",
+        "value": 8,
+        "label": "8%"
       },
       {
-        "range": "40岁以上",
-        "value": 10
+        "range": "其他",
+        "value": 2.61,
+        "label": "3%"
       }
     ],
     "femaleRate": 75.79,
@@ -665,6 +678,34 @@ const SITE_DATA = {
         {
           "name": "淘票票",
           "complaints": 4226
+        },
+        {
+          "name": "纷玩岛",
+          "complaints": 477
+        }
+      ]
+    },
+    {
+      "date": "2026-05-08",
+      "hero": {
+        "totalComplaints": 57000
+      },
+      "platforms": [
+        {
+          "name": "大麦网",
+          "complaints": 19521
+        },
+        {
+          "name": "猫眼",
+          "complaints": 12384
+        },
+        {
+          "name": "秀动",
+          "complaints": 4300
+        },
+        {
+          "name": "淘票票",
+          "complaints": 1608
         },
         {
           "name": "纷玩岛",
