@@ -1,5 +1,5 @@
 const SITE_DATA = {
-  "lastUpdated": "2026-07-26",
+  "lastUpdated": "2026-07-27",
   "hero": {
     "totalComplaints": 1500,
     "refundRequestRate": 90.83,
@@ -16,14 +16,14 @@ const SITE_DATA = {
   "platforms": [
     {
       "name": "大麦网",
-      "complaints": 108737,
+      "complaints": 108773,
       "resolveRate": "5.55%",
       "barWidth": 100.0
     },
     {
       "name": "猫眼",
-      "complaints": 46986,
-      "resolveRate": "32.18%",
+      "complaints": 46983,
+      "resolveRate": "32.19%",
       "barWidth": 43.2
     },
     {
@@ -3216,6 +3216,38 @@ const SITE_DATA = {
         {
           "name": "猫眼",
           "complaints": 46986
+        },
+        {
+          "name": "秀动",
+          "complaints": 4300
+        },
+        {
+          "name": "淘票票",
+          "complaints": 4226
+        },
+        {
+          "name": "摩天轮票务",
+          "complaints": 3178
+        },
+        {
+          "name": "纷玩岛",
+          "complaints": 477
+        }
+      ]
+    },
+    {
+      "date": "2026-07-27",
+      "hero": {
+        "totalComplaints": 1500
+      },
+      "platforms": [
+        {
+          "name": "大麦网",
+          "complaints": 108773
+        },
+        {
+          "name": "猫眼",
+          "complaints": 46983
         },
         {
           "name": "秀动",
