@@ -1,5 +1,5 @@
 const SITE_DATA = {
-  "lastUpdated": "2026-08-26",
+  "lastUpdated": "2026-08-27",
   "hero": {
     "totalComplaints": 1500,
     "refundRequestRate": 90.83,
@@ -16,13 +16,13 @@ const SITE_DATA = {
   "platforms": [
     {
       "name": "大麦网",
-      "complaints": 109631,
-      "resolveRate": "5.53%",
+      "complaints": 109779,
+      "resolveRate": "5.52%",
       "barWidth": 100.0
     },
     {
       "name": "猫眼",
-      "complaints": 47403,
+      "complaints": 47430,
       "resolveRate": "32.19%",
       "barWidth": 43.2
     },
@@ -40,8 +40,8 @@ const SITE_DATA = {
     },
     {
       "name": "摩天轮票务",
-      "complaints": 3226,
-      "resolveRate": "66.77%",
+      "complaints": 3233,
+      "resolveRate": "66.84%",
       "barWidth": 2.9
     },
     {
@@ -4220,6 +4220,38 @@ const SITE_DATA = {
         {
           "name": "摩天轮票务",
           "complaints": 3226
+        },
+        {
+          "name": "纷玩岛",
+          "complaints": 477
+        }
+      ]
+    },
+    {
+      "date": "2026-08-27",
+      "hero": {
+        "totalComplaints": 1500
+      },
+      "platforms": [
+        {
+          "name": "大麦网",
+          "complaints": 109779
+        },
+        {
+          "name": "猫眼",
+          "complaints": 47430
+        },
+        {
+          "name": "秀动",
+          "complaints": 4300
+        },
+        {
+          "name": "淘票票",
+          "complaints": 4226
+        },
+        {
+          "name": "摩天轮票务",
+          "complaints": 3233
         },
         {
           "name": "纷玩岛",
